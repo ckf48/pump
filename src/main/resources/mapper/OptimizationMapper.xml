@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pump.mapper.OptimizationMapper">
+  <resultMap id="BaseResultMap" type="com.example.pump.model.Optimization">
+    <result column="pump1" jdbcType="INTEGER" property="pump1" />
+    <result column="pump2" jdbcType="INTEGER" property="pump2" />
+    <result column="pump3" jdbcType="INTEGER" property="pump3" />
+    <result column="pump4" jdbcType="INTEGER" property="pump4" />
+    <result column="pump5" jdbcType="INTEGER" property="pump5" />
+    <result column="pump6" jdbcType="INTEGER" property="pump6" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pump1, pump2, pump3, pump4, pump5, pump6, `time`
+  </sql>
+  <select id="selectByExample" parameterType="com.example.pump.model.OptimizationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from optimization
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.example.pump.model.OptimizationExample">
+    delete from optimization
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.pump.model.Optimization">
+    insert into optimization (pump1, pump2, pump3, 
+      pump4, pump5, pump6, 
+      `time`)
+    values (#{pump1,jdbcType=INTEGER}, #{pump2,jdbcType=INTEGER}, #{pump3,jdbcType=INTEGER}, 
+      #{pump4,jdbcType=INTEGER}, #{pump5,jdbcType=INTEGER}, #{pump6,jdbcType=INTEGER}, 
+      #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.pump.model.Optimization">
+    insert into optimization
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pump1 != null">
+        pump1,
+      </if>
+      <if test="pump2 != null">
+        pump2,
+      </if>
+      <if test="pump3 != null">
+        pump3,
+      </if>
+      <if test="pump4 != null">
+        pump4,
+      </if>
+      <if test="pump5 != null">
+        pump5,
+      </if>
+      <if test="pump6 != null">
+        pump6,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pump1 != null">
+        #{pump1,jdbcType=INTEGER},
+      </if>
+      <if test="pump2 != null">
+        #{pump2,jdbcType=INTEGER},
+      </if>
+      <if test="pump3 != null">
+        #{pump3,jdbcType=INTEGER},
+      </if>
+      <if test="pump4 != null">
+        #{pump4,jdbcType=INTEGER},
+      </if>
+      <if test="pump5 != null">
+        #{pump5,jdbcType=INTEGER},
+      </if>
+      <if test="pump6 != null">
+        #{pump6,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.pump.model.OptimizationExample" resultType="java.lang.Long">
+    select count(*) from optimization
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update optimization
+    <set>
+      <if test="record.pump1 != null">
+        pump1 = #{record.pump1,jdbcType=INTEGER},
+      </if>
+      <if test="record.pump2 != null">
+        pump2 = #{record.pump2,jdbcType=INTEGER},
+      </if>
+      <if test="record.pump3 != null">
+        pump3 = #{record.pump3,jdbcType=INTEGER},
+      </if>
+      <if test="record.pump4 != null">
+        pump4 = #{record.pump4,jdbcType=INTEGER},
+      </if>
+      <if test="record.pump5 != null">
+        pump5 = #{record.pump5,jdbcType=INTEGER},
+      </if>
+      <if test="record.pump6 != null">
+        pump6 = #{record.pump6,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null">
+        `time` = #{record.time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update optimization
+    set pump1 = #{record.pump1,jdbcType=INTEGER},
+      pump2 = #{record.pump2,jdbcType=INTEGER},
+      pump3 = #{record.pump3,jdbcType=INTEGER},
+      pump4 = #{record.pump4,jdbcType=INTEGER},
+      pump5 = #{record.pump5,jdbcType=INTEGER},
+      pump6 = #{record.pump6,jdbcType=INTEGER},
+      `time` = #{record.time,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
