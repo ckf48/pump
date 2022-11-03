@@ -8,6 +8,19 @@
       password: cbq123456
       username: root
       url: jdbc:mysql://49.234.102.19:3306/yubase?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull
+    mvc:
+      static-path-pattern: /static/**
+    web:
+      resources:
+        static-locations: classpath:/static
+    thymeleaf:
+      cache: false
+      prefix: classpath:/templates/
+      check-template-location: true
+      suffix: .html
+      encoding: utf-8
+      mode: HTML
+
     jackson:
       date-format: yyyy-MM-dd HH:mm:ss
       time-zone: GMT+8
