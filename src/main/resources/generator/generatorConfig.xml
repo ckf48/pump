@@ -67,5 +67,6 @@
         <table tableName="predict_flow" domainObjectName="PredictFlow"/>
         <table tableName="user" domainObjectName="User"/>
         <table tableName="optimization" domainObjectName="Optimization"/>
+        <table tableName="efficiency_statistics" domainObjectName="EfficiencyStatistics"/>
     </context>
 </generatorConfiguration>

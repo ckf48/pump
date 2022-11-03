@@ -30,50 +30,48 @@ public class Service {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private EfficiencyStatisticsMapper efficiencyStatisticsMapper;
 
 
-
-
-//    private List<FlowEfficiencyWork> getFlowEfficiencyWork(int pumpNo, String start, String end) {
-//        FlowEfficiencyWorkExample example = new FlowEfficiencyWorkExample();
-//
-//        example.createCriteria().andTimeBetween(start, end).andPumpnoEqualTo(pumpNo);
-////        example.createCriteria().andPumpnoEqualTo(pumpNo);
-//        return flowEfficiencyWorkMapper.selectByExample(example);
-//    }
-
-    private List<HeadFlow> getHeadFlow(int pumpNo,String start,String end){
+    private List<HeadFlow> getHeadFlow(int pumpNo, String start, String end) {
         HeadFlowExample example = new HeadFlowExample();
-        example.createCriteria().andTimeBetween(start,end).andPumpnoEqualTo(pumpNo);
+        example.createCriteria().andTimeBetween(start, end).andPumpnoEqualTo(pumpNo);
         return headFlowMapper.selectByExample(example);
     }
 
-    private List<WorkFlow> getWorkFlow(int pumpNo, String start, String end){
+    private List<WorkFlow> getWorkFlow(int pumpNo, String start, String end) {
         WorkFlowExample example = new WorkFlowExample();
-        example.createCriteria().andTimeBetween(start,end).andPumpnoEqualTo(pumpNo);
+        example.createCriteria().andTimeBetween(start, end).andPumpnoEqualTo(pumpNo);
         return workFlowMapper.selectByExample(example);
     }
 
-    private List<EfficiencyFlow> getEfficiencyFlow(int pumpNo, String start, String end){
+    private List<EfficiencyFlow> getEfficiencyFlow(int pumpNo, String start, String end) {
         EfficiencyFlowExample example = new EfficiencyFlowExample();
-        example.createCriteria().andTimeBetween(start,end).andPumpnoEqualTo(pumpNo);
+        example.createCriteria().andTimeBetween(start, end).andPumpnoEqualTo(pumpNo);
         return efficiencyFlowMapper.selectByExample(example);
     }
-    
-    private List<PredictFlow> getPredictFlow(int pumpNo,String start,String end){
+
+    private List<PredictFlow> getPredictFlow(int pumpNo, String start, String end) {
         PredictFlowExample example = new PredictFlowExample();
-        example.createCriteria().andTimeBetween(start,end).andPumpnoEqualTo(pumpNo);
+        example.createCriteria().andTimeBetween(start, end).andPumpnoEqualTo(pumpNo);
         return predictFlowMapper.selectByExample(example);
+    }
+
+    private List<EfficiencyStatistics> getEfficiencyStatistics(int pumpNo, String start, String end) {
+        EfficiencyStatisticsExample example = new EfficiencyStatisticsExample();
+        example.createCriteria().andTimeBetween(start, end).andPumpnoEqualTo(pumpNo);
+        return efficiencyStatisticsMapper.selectByExample(example);
     }
 
     public List<Block> head_flow(int pumpNo, String start, String end) {
         List<HeadFlow> dataList = getHeadFlow(pumpNo, start, end);
-        Map<String,Double> heads = new LinkedHashMap<>();
-        Map<String,Double> flows = new LinkedHashMap<>();
+        Map<String, Double> heads = new LinkedHashMap<>();
+        Map<String, Double> flows = new LinkedHashMap<>();
 
         for (HeadFlow item : dataList) {
-            heads.put(item.getTime(),item.getHead());
-            flows.put(item.getTime(),item.getFlow());
+            heads.put(item.getTime(), item.getHead());
+            flows.put(item.getTime(), item.getFlow());
         }
 
         Block head = new Block("head");
@@ -92,12 +90,12 @@ public class Service {
 
     public List<Block> work_flow(int pumpNo, String start, String end) {
         List<WorkFlow> dataList = getWorkFlow(pumpNo, start, end);
-        Map<String,Double> works = new LinkedHashMap<>();
-        Map<String,Double> flows = new LinkedHashMap<>();
+        Map<String, Double> works = new LinkedHashMap<>();
+        Map<String, Double> flows = new LinkedHashMap<>();
 
         for (WorkFlow item : dataList) {
-            works.put(item.getTime(),item.getWork());
-            flows.put(item.getTime(),item.getFlow());
+            works.put(item.getTime(), item.getWork());
+            flows.put(item.getTime(), item.getFlow());
         }
 
         Block work = new Block("work");
@@ -115,12 +113,12 @@ public class Service {
 
     public List<Block> efficiency_flow(int pumpNo, String start, String end) {
         List<EfficiencyFlow> dataList = getEfficiencyFlow(pumpNo, start, end);
-        Map<String,Double> efficiencys = new LinkedHashMap<>();
-        Map<String,Double> flows = new LinkedHashMap<>();
+        Map<String, Double> efficiencys = new LinkedHashMap<>();
+        Map<String, Double> flows = new LinkedHashMap<>();
 
         for (EfficiencyFlow item : dataList) {
-            efficiencys.put(item.getTime(),item.getEfficiency());
-            flows.put(item.getTime(),item.getFlow());
+            efficiencys.put(item.getTime(), item.getEfficiency());
+            flows.put(item.getTime(), item.getFlow());
         }
 
         Block efficiency = new Block("efficiency");
@@ -138,12 +136,12 @@ public class Service {
 
     public List<Block> predict_flow(int pumpNo, String start, String end) {
         List<PredictFlow> dataList = getPredictFlow(pumpNo, start, end);
-        Map<String,Double> predicts = new LinkedHashMap<>();
-        Map<String,Double> flows = new LinkedHashMap<>();
+        Map<String, Double> predicts = new LinkedHashMap<>();
+        Map<String, Double> flows = new LinkedHashMap<>();
 
         for (PredictFlow item : dataList) {
-            predicts.put(item.getTime(),item.getPredict());
-            flows.put(item.getTime(),item.getFlow());
+            predicts.put(item.getTime(), item.getPredict());
+            flows.put(item.getTime(), item.getFlow());
         }
 
         Block predict = new Block("predict");
@@ -157,5 +155,10 @@ public class Service {
         series.addBlock(flow);
 
         return series.getBlocks();
+    }
+
+    public List<EfficiencyStatistics> efficiency_statistics(int pumpNo, String start, String end) {
+        return getEfficiencyStatistics(pumpNo, start, end);
+
     }
 }
