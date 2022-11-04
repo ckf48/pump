@@ -80,6 +80,13 @@ public class Controller {
         return service.optimization(date);
     }
 
+    @PostMapping("/signIn")
+
+    public String signIn(@RequestParam String username,
+                         @RequestParam String password) {
+        return service.getUserToken(username, password);
+    }
+
     @Data
     private static class ModelForStatistics {
         String time;

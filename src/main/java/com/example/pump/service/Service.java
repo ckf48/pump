@@ -186,4 +186,15 @@ public class Service {
 
         return map;
     }
+
+    public String getUserToken(String username,String password){
+        UserExample example = new UserExample();
+        example.createCriteria().andUsernameEqualTo(username).andPasswordEqualTo(password);
+        List<User> user = userMapper.selectByExample(example);
+        if(user.isEmpty()){
+            return "";
+        }else {
+            return user.get(0).getToken();
+        }
+    }
 }

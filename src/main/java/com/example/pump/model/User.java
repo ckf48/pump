@@ -1,66 +1,44 @@
 package com.example.pump.model;
 
-import java.util.Date;
-
 public class User {
-    private Integer id;
+    private String username;
 
-    private String name;
+    private String password;
 
-    private Integer age;
+    private String email;
 
-    private String userName;
+    private String token;
 
-    private Integer roleId;
-
-    private Date createDate;
-
-    public Integer getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getToken() {
+        return token;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
@@ -69,12 +47,10 @@ public class User {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", age=").append(age);
-        sb.append(", userName=").append(userName);
-        sb.append(", roleId=").append(roleId);
-        sb.append(", createDate=").append(createDate);
+        sb.append(", username=").append(username);
+        sb.append(", password=").append(password);
+        sb.append(", email=").append(email);
+        sb.append(", token=").append(token);
         sb.append("]");
         return sb.toString();
     }
