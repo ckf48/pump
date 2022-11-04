@@ -64,6 +64,12 @@ public class Service {
         return efficiencyStatisticsMapper.selectByExample(example);
     }
 
+    private List<Optimization> getOptimization(String date) {
+        OptimizationExample example = new OptimizationExample();
+        example.createCriteria().andTimeBetween("0000-00-00 00:00:00", date);
+        return optimizationMapper.selectByExample(example);
+    }
+
     public List<Block> head_flow(int pumpNo, String start, String end) {
         List<HeadFlow> dataList = getHeadFlow(pumpNo, start, end);
         Map<String, Double> heads = new LinkedHashMap<>();
@@ -160,5 +166,24 @@ public class Service {
     public List<EfficiencyStatistics> efficiency_statistics(int pumpNo, String start, String end) {
         return getEfficiencyStatistics(pumpNo, start, end);
 
+    }
+
+    public Map<Integer, Integer> optimization(String date) {
+        List<Optimization> dataList = getOptimization(date);
+        Map<Integer, Integer> map = new LinkedHashMap<>();
+        if (dataList.isEmpty() || dataList.size() == 1) {
+            return map;
+        }
+
+        Optimization theOne = dataList.get(dataList.size() - 2);
+
+        map.put(1, theOne.getPump1());
+        map.put(2, theOne.getPump2());
+        map.put(3, theOne.getPump3());
+        map.put(4, theOne.getPump4());
+        map.put(5, theOne.getPump5());
+        map.put(6, theOne.getPump6());
+
+        return map;
     }
 }

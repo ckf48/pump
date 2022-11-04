@@ -58,21 +58,26 @@ public class Controller {
     }
 
     @PostMapping("/efficiency_statistics")
-    public Map<Integer,List<ModelForStatistics>> getEfficiencyStatistics(@RequestParam List<Integer> pumpNos,
-                                                                        @RequestParam String start,
-                                                                         @RequestParam String end) {
-        Map<Integer,List<ModelForStatistics>> map = new LinkedHashMap<>();
-        for(int pumpNo : pumpNos){
-            List<EfficiencyStatistics> dataList = service.efficiency_statistics(pumpNo,start,end);
+    public Map<Integer, List<ModelForStatistics>> getEfficiencyStatistics(@RequestParam List<Integer> pumpNos,
+                                                                          @RequestParam String start,
+                                                                          @RequestParam String end) {
+        Map<Integer, List<ModelForStatistics>> map = new LinkedHashMap<>();
+        for (int pumpNo : pumpNos) {
+            List<EfficiencyStatistics> dataList = service.efficiency_statistics(pumpNo, start, end);
             List<ModelForStatistics> list = new LinkedList<>();
-            for(EfficiencyStatistics item : dataList){
+            for (EfficiencyStatistics item : dataList) {
                 list.add(new ModelForStatistics(item.getTime(), item.getEfficiency()));
             }
 
-            map.put(pumpNo,list);
+            map.put(pumpNo, list);
         }
 
         return map;
+    }
+
+    @PostMapping("/optimization")
+    public Map<Integer, Integer> optimization(String date) {
+        return service.optimization(date);
     }
 
     @Data
